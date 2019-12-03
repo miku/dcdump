@@ -56,6 +56,10 @@ var (
 	workers     = flag.Int("w", 4, "parallel workers (approximate)")
 	interval    = flag.String("i", "d", "[w]eekly, [d]daily, [h]ourly, [e]very minute")
 	directory   = flag.String("d", ".", "directory, where to put harvested files")
+	showVersion = flag.Bool("version", false, "show version")
+
+	Version   = "dev"
+	Buildtime = time.Now().Format("2006-01-02T15:04:05Z")
 )
 
 // unrollPages takes a start and end time and will concatenate results from
@@ -104,6 +108,11 @@ func main() {
 	flag.Var(&end, "e", "end date for harvest")
 
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Printf("dcdump %s %s\n", Version, Buildtime)
+		os.Exit(0)
+	}
 
 	sem := make(chan struct{}, *workers) // Have at most ~workers in parallel.
 	var wg sync.WaitGroup
