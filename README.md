@@ -5,9 +5,11 @@ As of Fall 2019 the Datacite API is a bit flaky.
 * https://github.com/datacite/lupo/issues/237
 * https://github.com/datacite/datacite/issues/851
 * https://github.com/datacite/datacite/issues/188
+* https://github.com/datacite/datacite/issues/709
 
-This tool tries to get a data dump until from the API, until a [full dump might
-be available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
+This tool tries to get a data dump until from the API, until a [full
+dump](https://github.com/datacite/datacite/issues/709) [might be
+available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
 
 ```
 $ nslookup api.datacite.org
@@ -31,13 +33,13 @@ $ make
 $ dcdump -h
 Usage of dcdump:
   -d string
-        where to put harvested files (default ".")
+        directory, where to put harvested files (default ".")
   -debug
         only print intervals then exit
   -e value
         end date for harvest (default 2019-12-03)
   -i string
-        [h]ourly, [d]aily, [w]eekly (default "d")
+        [w]eekly, [d]daily, [h]ourly, [e]very minute (default "d")
   -l int
         upper limit for number of requests (default 16777216)
   -p string
