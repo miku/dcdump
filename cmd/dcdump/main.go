@@ -47,17 +47,15 @@ import (
 )
 
 var (
-	defaultPrefix = "dcdump-"
-
 	start dateutil.Date = dateutil.Date{dateutil.MustParse("2018-01-01")}
 	end   dateutil.Date = dateutil.Date{time.Now().UTC()}
 
 	debug       = flag.Bool("debug", false, "only print intervals then exit")
-	prefix      = flag.String("p", defaultPrefix, "file prefix for harvested files")
+	prefix      = flag.String("p", "dcdump-", "file prefix for harvested files")
 	maxRequests = flag.Int("l", 16777216, "upper limit for number of requests")
 	workers     = flag.Int("w", 4, "parallel workers (approximate)")
-	interval    = flag.String("i", "d", "[h]ourly, [d]aily, [w]eekly")
-	directory   = flag.String("d", ".", "where to put harvested files")
+	interval    = flag.String("i", "d", "[w]eekly, [d]daily, [h]ourly, [e]very minute")
+	directory   = flag.String("d", ".", "directory, where to put harvested files")
 )
 
 // unrollPages takes a start and end time and will concatenate results from
