@@ -47,8 +47,8 @@ import (
 )
 
 var (
-	start dateutil.Date = dateutil.Date{dateutil.MustParse("2018-01-01")}
-	end   dateutil.Date = dateutil.Date{time.Now().UTC()}
+	start dateutil.Date = dateutil.Date{Time: dateutil.MustParse("2018-01-01")}
+	end   dateutil.Date = dateutil.Date{Time: time.Now().UTC()}
 
 	debug       = flag.Bool("debug", false, "only print intervals then exit")
 	prefix      = flag.String("p", "dcdump-", "file prefix for harvested files")
