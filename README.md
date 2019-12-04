@@ -1,6 +1,7 @@
-# (wip) Datacite Dump Tool
+# Datacite Dump Tool
 
-As of Fall 2019 the Datacite API is a bit flaky.
+As of Fall 2019 the [datacite API](https://support.datacite.org/docs/api) is
+a bit flaky.
 
 * https://github.com/datacite/lupo/issues/237
 * https://github.com/datacite/datacite/issues/851
@@ -110,7 +111,7 @@ INFO[0000] 1440 intervals
 The time windows are not adjusted dynamically. So if you know, by accident,
 that 2019-08-02 is a critical date (meaning there are [millions of
 updates](https://gist.github.com/miku/176edd1222fc42ae3b23234bc9d3cd87#file-freq-tsv-L325)),
-you could run three harvests:
+you could run three partial harvests:
 
 * daily, up until 2019-08-01
 * every minute, between 2019-08-01 and 2019-08-03

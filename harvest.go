@@ -12,9 +12,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// HarvestBatch takes a link and follows subsequent pages, writes everything
-// into a tempfile. Returns path to temporary file and an error. Fails, if HTTP
-// status is >= 400. TODO(martin): Try to recover from more errors.
+// HarvestBatch takes a link (like https://is.gd/0pwu5c) and follows subsequent
+// pages, writes everything into a tempfile. Returns path to temporary file and
+// an error. Fails, if HTTP status is >= 400; has limited retry capabilities.
 func HarvestBatch(link string, maxRequests int) (string, error) {
 	var (
 		i          int

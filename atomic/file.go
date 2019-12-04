@@ -9,6 +9,8 @@ import (
 	"path"
 )
 
+// WriteFileReader writes data from a reader atomically into filename. Beware
+// that this will read all file content into memory first.
 func WriteFileReader(filename string, r io.Reader, perm os.FileMode) error {
 	b, err := ioutil.ReadAll(r)
 	if err != nil {
@@ -17,7 +19,8 @@ func WriteFileReader(filename string, r io.Reader, perm os.FileMode) error {
 	return WriteFile(filename, b, perm)
 }
 
-// WriteFileAtomic writes the data to a temp file and atomically move if everything else succeeds.
+// WriteFileAtomic writes the data to a temp file and atomically move if
+// everything else succeeds.
 func WriteFile(filename string, data []byte, perm os.FileMode) error {
 	dir, name := path.Split(filename)
 	f, err := ioutil.TempFile(dir, name)
@@ -44,9 +47,10 @@ func WriteFile(filename string, data []byte, perm os.FileMode) error {
 	return err
 }
 
-// MoveFile copies file from src to dst. It only works on single files and
+// MoveFile copies file from src to dst. It only works with a single file and
 // fails, if dst already exists or if dirname(dst) does not exist. Works across
-// partitions.
+// partitions (to mitigate "errno 18" "Invalid cross-device link" kind of
+// errors on rename).
 func MoveFile(src, dst string) error {
 	fi, err := os.Stat(dst)
 	if err == nil || (fi != nil && fi.IsDir()) {
@@ -64,7 +68,7 @@ func MoveFile(src, dst string) error {
 		return err
 	}
 	defer f.Close()
-	dsttmp := fmt.Sprintf("%s-%d", rand.Intn(99999999))
+	dsttmp := fmt.Sprintf("%s-%d", dst, rand.Intn(99999999))
 	g, err := os.Create(dsttmp)
 	if err != nil {
 		return err

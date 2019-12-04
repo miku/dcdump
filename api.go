@@ -1,7 +1,7 @@
 package dcdump
 
-// DOIResponse is the /dois endpoint response. TODO(martin): Sort out the
-// interface{} fields, if necessary.
+// DOIResponse is the https://api.datacite.org/dois endpoint response.
+// TODO(martin): Sort out the interface{} fields, if necessary.
 type DOIResponse struct {
 	Data []struct {
 		Attributes    interface{} `json:"attributes"`

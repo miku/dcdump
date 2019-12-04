@@ -9,23 +9,28 @@ import (
 )
 
 var (
-	// https://english.stackexchange.com/questions/3091/weekly-daily-hourly-minutely
+	// EveryMinute will chop up a timespan into 60s intervals;
+	// https://english.stackexchange.com/questions/3091/weekly-daily-hourly-minutely.
 	EveryMinute = makeIntervalFunc(
 		func(t time.Time) time.Time { return now.With(t).BeginningOfMinute() },
 		func(t time.Time) time.Time { return now.With(t).EndOfMinute() },
 	)
+	// Hourly will chop up a timespan into 60min intervals.
 	Hourly = makeIntervalFunc(
 		func(t time.Time) time.Time { return now.With(t).BeginningOfHour() },
 		func(t time.Time) time.Time { return now.With(t).EndOfHour() },
 	)
+	// Daily will chop up a timespan into 24h intervals.
 	Daily = makeIntervalFunc(
 		func(t time.Time) time.Time { return now.With(t).BeginningOfDay() },
 		func(t time.Time) time.Time { return now.With(t).EndOfDay() },
 	)
+	// Weekly will chop up a timespan into 7 day intervals.
 	Weekly = makeIntervalFunc(
 		func(t time.Time) time.Time { return now.With(t).BeginningOfWeek() },
 		func(t time.Time) time.Time { return now.With(t).EndOfWeek() },
 	)
+	// Monthly will chop up a timespan into monthly intervals.
 	Monthly = makeIntervalFunc(
 		func(t time.Time) time.Time { return now.With(t).BeginningOfMonth() },
 		func(t time.Time) time.Time { return now.With(t).EndOfMonth() },
@@ -33,11 +38,17 @@ var (
 )
 
 type (
-	shiftFunc    func(t time.Time) time.Time
+	// shiftFunc allows to shift a given time back and forth.
+	shiftFunc func(t time.Time) time.Time
+
+	// intervalFunc takes a start and endtime and returns a number of
+	// intervals. How intervals are generated is flexible.
 	intervalFunc func(s, e time.Time) []Interval
 )
 
 // makeIntervalFunc is a helper to create daily, weekly and other intervals.
+// Given two shiftFuncs (to mark the beginning of an interval and the end), we
+// return a function, that will allow us to generate certain intervals.
 func makeIntervalFunc(beginningOfX, endOfX shiftFunc) intervalFunc {
 	f := func(s, e time.Time) (result []Interval) {
 		var (

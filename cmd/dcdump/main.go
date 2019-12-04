@@ -1,7 +1,8 @@
-// [wip] Tool to fetch a full list of DOI from datacite.org API, because as of
-// Fall 2019 a full dump is not yet available (https://git.io/Je6bs,
-// https://git.io/Je6Dg). This is throwaway code, as it is hopefully obsolete
-// soon.
+// Tool to fetch a full list of DOI from datacite.org API, because as of Fall
+// 2019 a full dump is not yet available (https://git.io/Je6bs,
+// https://git.io/Je6Dg).
+//
+// THIS IS THROWAWAY CODE, AS IT IS HOPEFULLY OBSOLETE SOON.
 //
 // Currently (12/2019) using the "dois" endpoint, from v2 of the datacite API,
 // supposedly.
@@ -10,7 +11,7 @@
 // endpoints /works, /members, or /data-centers, you are using version 1.
 //
 // Various intervals (weekly, daily, hourly, every minute) to mitigate deep
-// paging issue.
+// paging issue and HTTP 502s.
 //
 // Notes.
 //
@@ -24,10 +25,6 @@
 // window.
 //
 // Less informative 500 on https://is.gd/uP0aJ2; 2019-10-07 16:19:00 - 16:19:59.
-//
-// TODO(martin): rely less on manual intervention. How simple this data set
-// could be with just a monthly dump! It's not large - have fetched 70G
-// uncompressed so far. Also: consume less memory, when using wider intervals.
 package main
 
 import (
@@ -62,8 +59,9 @@ var (
 	Buildtime = time.Now().Format("2006-01-02T15:04:05Z")
 )
 
-// unrollPages takes a start and end time and will concatenate results from
-// pages into a single file. A file prefix can be used to group files.
+// unrollPages takes a start and end time and will write newline delimited JSON
+// into a single file at DIRECTORY/PREFIX-START-END.ndj. If that file already
+// exists, we assume we already fetched that particular time window.
 func unrollPages(s, e time.Time, directory, prefix string) error {
 	filename := path.Join(directory, fmt.Sprintf("%s%s-%s.ndj",
 		prefix,
@@ -96,7 +94,7 @@ func unrollPages(s, e time.Time, directory, prefix string) error {
 	return atomic.MoveFile(fn, filename)
 }
 
-// hasPrefix returns true, if s starts with prefix, case independent.
+// hasPrefix returns true, if s starts with prefix, case insensitive.
 func hasPrefix(s, prefix string) bool {
 	return strings.HasPrefix(
 		strings.ToLower(strings.TrimSpace(s)),
