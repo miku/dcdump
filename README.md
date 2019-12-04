@@ -150,3 +150,13 @@ $ cat tmp/*ndj > datacite.ndj
 
 Again, this is ugly, but should all be obsolete as soon as [a public data
 dump](https://github.com/datacite/datacite/issues/709) is available.
+
+## Error catalog
+
+* HTTP 502, 500, 403, 400
+* "unexpected EOF"
+* "stream error"
+
+```
+FATA[6851] stream error: stream ID 91985; INTERNAL_ERROR
+```
