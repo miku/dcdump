@@ -8,7 +8,7 @@ a bit flaky.
 * https://github.com/datacite/datacite/issues/188
 * https://github.com/datacite/datacite/issues/709
 
-This tool tries to get a data dump until from the API, until a [full
+This tool tries to get a data dump from the API, until a [full
 dump](https://github.com/datacite/datacite/issues/709) [might be
 available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
 
@@ -22,9 +22,13 @@ Name:   lb-813668705.eu-west-1.elb.amazonaws.com
 Address: 54.76.211.202
 ```
 
-## Build
+## Install and Build
+
+You'll need the [go](https://golang.org/cmd/go/) tool installed (i.e. [installed go](https://golang.org/doc/install)).
 
 ```
+$ git clone https://git.archive.org/webgroup/dcdump.git
+$ cd dcdump
 $ make
 ```
 
@@ -38,7 +42,7 @@ Usage of dcdump:
   -debug
         only print intervals then exit
   -e value
-        end date for harvest (default 2019-12-03)
+        end date for harvest (default 2019-12-04)
   -i string
         [w]eekly, [d]daily, [h]ourly, [e]very minute (default "d")
   -l int
@@ -47,6 +51,8 @@ Usage of dcdump:
         file prefix for harvested files (default "dcdump-")
   -s value
         start date for harvest (default 2018-01-01)
+  -version
+        show version
   -w int
         parallel workers (approximate) (default 4)
 ```
@@ -59,16 +65,10 @@ cursor to circumvent the Index Deep Paging Problem (limit as of 12/2019 is
 [10000 records for a query](https://support.datacite.org/docs/pagination), 400
 pages x 25 records per page).
 
-So create a tempdir.
-
-```
-$ mkdir dump
-```
-
 To just list the intervals (depending on the -i flag), use the `-debug` flag:
 
 ```
-$ dcdump -d dump -i h -s 2019-10-01 -e 2019-10-02 -debug
+$ dcdump -i h -s 2019-10-01 -e 2019-10-02 -debug
 2019-10-01 00:00:00 +0000 UTC -- 2019-10-01 00:59:59.999999999 +0000 UTC
 2019-10-01 01:00:00 +0000 UTC -- 2019-10-01 01:59:59.999999999 +0000 UTC
 2019-10-01 02:00:00 +0000 UTC -- 2019-10-01 02:59:59.999999999 +0000 UTC
@@ -108,6 +108,14 @@ INFO[0000] 1440 intervals
 ...
 ```
 
+
+So create some temporary dir (to not pollute the current directory with the
+harvested files).
+
+```
+$ mkdir tmp
+```
+
 The time windows are not adjusted dynamically. So if you know, by accident,
 that 2019-08-02 is a critical date (meaning there are [millions of
 updates](https://gist.github.com/miku/176edd1222fc42ae3b23234bc9d3cd87#file-freq-tsv-L325)),
@@ -120,11 +128,10 @@ you could run three partial harvests:
 This is not automated, but can be scripted.
 
 ```
-$ dcdump -e '2019-07-31 23:59:59' -i daily -d tmp -p 'part-01-'
+$ dcdump -e '2019-07-31 23:59:59' -i d -d tmp -p 'part-01-'
 $ dcdump -s 2019-08-01 -e '2019-08-03 23:59:59' -i e -d tmp -p 'part-02-'
-$ dcdump -s 2019-08-04 -i daily -d tmp -p 'part-03-'
+$ dcdump -s 2019-08-04 -i d -d tmp -p 'part-03-'
 ```
-
 
 If a specific time window fails repeatedly, you can manually touch the file, e.g.
 
