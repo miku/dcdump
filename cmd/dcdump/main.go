@@ -82,13 +82,12 @@ func unrollPages(s, e time.Time, directory, prefix string) error {
 	link := fmt.Sprintf("https://api.datacite.org/dois?%s", vs.Encode())
 
 	// Fetch into temporary file, then move to destination.
-	log.Printf("start batch: %s", link)
 	fn, err := dcdump.HarvestBatch(link, *maxRequests) // Page through.
 	if err != nil {
-		log.Printf("failed to create file at %s", filename)
+		log.Printf("failed to create file for %s at %s", link, filename)
 		return err
 	}
-	log.Printf("batch done: %s", link)
+	log.Printf("batch done: %s [%s]", link, filename)
 	return atomic.MoveFile(fn, filename)
 }
 
