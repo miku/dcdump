@@ -153,10 +153,33 @@ dump](https://github.com/datacite/datacite/issues/709) is available.
 
 ## Error catalog
 
-* HTTP 502, 500, 403, 400
-* "unexpected EOF"
-* "stream error"
+> HTTP 502, 500, 403, 400, "unexpected EOF", "stream error"
+
+### "HTTP 400"
+
+An bug report related to [elasticsearch
+search_after](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-search-after)
+has been filed as [#897](https://github.com/datacite/datacite/issues/897).
+
+### "stream error"
+
+Seems ephemeral.
 
 ```
 FATA[6851] stream error: stream ID 91985; INTERNAL_ERROR
 ```
+
+### "HTTP 500"
+
+There are occasional out-of-the-blue (OOTB) HTTP 500, e.g. when using a daily
+window harvesting on 2019-10-07:
+
+* https://api.datacite.org/dois?page%5Bcursor%5D=1&page%5Bsize%5D=100&query=updated%3A%5B2019-10-07T00%3A00%3A00Z+TO+2019-10-07T23%3A59%3A59Z%5D&state=findable
+
+In the log, there should be a line like:
+
+```
+INFO[0227] failed to create file at tmp/part-03-20191007161900-20191007161959.ndj
+```
+
+A [bug report has been filed](https://github.com/datacite/datacite/issues/898) for this error.

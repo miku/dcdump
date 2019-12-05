@@ -3,6 +3,9 @@
 # Example mini script to harvest datacite in three partial runs to mitigate API
 # errors due to huge result sets
 # (https://gist.github.com/miku/176edd1222fc42ae3b23234bc9d3cd87).
+#
+# Note, that manual intervention might still be required, because of an
+# unexpected, non-recoverable HTTP 500 or HTTP 403.
 
 set -eu -o pipefail
 
