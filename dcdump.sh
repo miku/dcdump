@@ -18,7 +18,6 @@ function finish() {
 trap finish EXIT
 
 PATH="$PATH:$(pwd)" dcdump -s 2018-01-01 -e '2019-07-31 23:59:59' -i daily -d tmp -p 'part-01-'
-PATH="$PATH:$(pwd)" dcdump -s 2019-08-01 -e '2019-08-03 23:59:59' -i e -d tmp -p 'part-02-'
-PATH="$PATH:$(pwd)" dcdump -s 2019-08-04 -i daily -d tmp -p 'part-03-' # implicit -e, today
+PATH="$PATH:$(pwd)" dcdump -s 2019-08-01 -i e -d tmp -p 'part-02-'
 
 echo >&2 "done: $HARVEST_DIR"
