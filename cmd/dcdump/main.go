@@ -88,6 +88,7 @@ func unrollPages(s, e time.Time, directory, prefix string) error {
 	log.Printf("start batch: %s", link)
 	fn, err := dcdump.HarvestBatch(link, *maxRequests) // Page through.
 	if err != nil {
+		log.Printf("failed to create file at %s", filename)
 		return err
 	}
 	log.Printf("batch done: %s", link)
