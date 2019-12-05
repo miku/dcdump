@@ -13,18 +13,15 @@
 // Various intervals (weekly, daily, hourly, every minute) to mitigate deep
 // paging issue and HTTP 502s.
 //
-// Notes.
-//
-// a) Hourly slices will fetch 27G, then fail with 502, too.
-// b) Every minute is better, smaller chunks, short cursor runs (100s of pages, no 1000s).
-//
 // Errors encountered: 502, 500, 403, 400, "unexpected EOF" (maybe
 // https://stackoverflow.com/q/21147562/89391). Strange error with minute
 // interval: "search_after has 3 value(s) but sort has 2."
-// (https://is.gd/9b0GF0); only in the 2019-08-02 15:17:00 - 15:17:59 query
-// window.
 //
-// Less informative 500 on https://is.gd/uP0aJ2; 2019-10-07 16:19:00 - 16:19:59.
+// Reported issues:
+//
+// * https://github.com/datacite/datacite/issues/897 ("search_after ...")
+// * https://github.com/datacite/datacite/issues/898 (less informative 500 on
+//     https://is.gd/uP0aJ2; 2019-10-07 16:19:00 - 16:19:59)
 package main
 
 import (
