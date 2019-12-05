@@ -37,7 +37,7 @@ func HarvestBatch(link string, maxRequests int) (string, error) {
 			if retry == maxRetries {
 				return "", fmt.Errorf("max retries exceeded on %s (last status code was: %d)", link, resp.StatusCode)
 			}
-			log.Println(link)
+			log.Printf("[%d] %s", retry, link)
 			req, err := http.NewRequest("GET", link, nil)
 			if err != nil {
 				return "", err
@@ -61,6 +61,7 @@ func HarvestBatch(link string, maxRequests int) (string, error) {
 			if resp.StatusCode < 400 {
 				break
 			}
+			log.Printf("failed to fetch link with %d %s, will retry in %s", resp.StatusCode, resp.Status, sleep)
 			time.Sleep(sleep)
 		}
 		tee := io.TeeReader(resp.Body, f)
