@@ -30,23 +30,25 @@ $ make
 $ dcdump -h
 Usage of dcdump:
   -d string
-        directory, where to put harvested files (default ".")
+	directory, where to put harvested files (default ".")
   -debug
-        only print intervals then exit
+	only print intervals then exit
   -e value
-        end date for harvest (default 2019-12-04)
+	end date for harvest (default 2019-12-10)
   -i string
-        [w]eekly, [d]daily, [h]ourly, [e]very minute (default "d")
+	[w]eekly, [d]daily, [h]ourly, [e]very minute (default "d")
   -l int
-        upper limit for number of requests (default 16777216)
+	upper limit for number of requests (default 16777216)
   -p string
-        file prefix for harvested files (default "dcdump-")
+	file prefix for harvested files (default "dcdump-")
   -s value
-        start date for harvest (default 2018-01-01)
+	start date for harvest (default 2018-01-01)
+  -sleep duration
+	backoff after HTTP error (default 5m0s)
   -version
-        show version
+	show version
   -w int
-        parallel workers (approximate) (default 4)
+	parallel workers (approximate) (default 4)
 ```
 
 ## Examples
