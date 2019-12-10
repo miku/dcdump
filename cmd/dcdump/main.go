@@ -57,10 +57,10 @@ var (
 )
 
 // unrollPages takes a start and end time and will write newline delimited JSON
-// into a single file at DIRECTORY/PREFIX-START-END.ndj. If that file already
+// into a single file at DIRECTORY/PREFIX-START-END.ndjson. If that file already
 // exists, we assume we already fetched that particular time window.
 func unrollPages(s, e time.Time, directory, prefix string) error {
-	filename := path.Join(directory, fmt.Sprintf("%s%s-%s.ndj",
+	filename := path.Join(directory, fmt.Sprintf("%s%s-%s.ndjson",
 		prefix,
 		s.Format("20060102150405"),
 		e.Format("20060102150405")))
@@ -144,7 +144,7 @@ func main() {
 		go func(iv dateutil.Interval) {
 			defer wg.Done()
 			if err := unrollPages(iv.Start, iv.End, *directory, *prefix); err != nil {
-				log.Warnf("incomplete harvest - maybe rm -f %s*.ndj", path.Join(*directory, *prefix))
+				log.Warnf("incomplete harvest - maybe rm -f %s*.ndjson", path.Join(*directory, *prefix))
 				log.Fatal(err)
 			}
 			<-sem
