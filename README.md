@@ -1,26 +1,18 @@
 # Datacite Dump Tool
 
 As of Fall 2019 the [datacite API](https://support.datacite.org/docs/api) is
-a bit flaky.
-
-* https://github.com/datacite/lupo/issues/237
-* https://github.com/datacite/datacite/issues/851
-* https://github.com/datacite/datacite/issues/188
-* https://github.com/datacite/datacite/issues/709
+a bit flaky: [#237](https://github.com/datacite/lupo/issues/237),
+[#851](https://github.com/datacite/datacite/issues/851),
+[#188](https://github.com/datacite/datacite/issues/188),
+[#709](https://github.com/datacite/datacite/issues/709)
+[#897](https://github.com/datacite/datacite/issues/897),
+[#898](https://github.com/datacite/datacite/issues/898).
 
 This tool tries to get a data dump from the API, until a [full
 dump](https://github.com/datacite/datacite/issues/709) [might be
 available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
 
-```
-$ nslookup api.datacite.org
-
-api.datacite.org        canonical name = lb-813668705.eu-west-1.elb.amazonaws.com.
-Name:   lb-813668705.eu-west-1.elb.amazonaws.com
-Address: 52.208.253.16
-Name:   lb-813668705.eu-west-1.elb.amazonaws.com
-Address: 54.76.211.202
-```
+This data will be ingested into [fatcat](https://fatcat.wiki/).
 
 ## Install and Build
 
@@ -116,27 +108,20 @@ harvested files).
 $ mkdir tmp
 ```
 
-The time windows are not adjusted dynamically. So if you know, by accident,
-that 2019-08-02 is a critical date (meaning there are [millions of
-updates](https://gist.github.com/miku/176edd1222fc42ae3b23234bc9d3cd87#file-freq-tsv-L325)),
-you could run three partial harvests:
-
-* daily, up until 2019-08-01
-* every minute, between 2019-08-01 and 2019-08-03
-* daily, rest
-
-This is not automated, but can be scripted.
+Start harvesting (minute intervals, into `tmp`, with 2 workers).
 
 ```
-$ dcdump -e '2019-07-31 23:59:59' -i d -d tmp -p 'part-01-'
-$ dcdump -s 2019-08-01 -e '2019-08-03 23:59:59' -i e -d tmp -p 'part-02-'
-$ dcdump -s 2019-08-04 -i d -d tmp -p 'part-03-'
+$ dcdump -i e -d tmp -w 2
 ```
+
+The time windows are not adjusted dynamically. Worse, it seems that even with
+a low profile harvest (two workers, backoffs, retries) and minute
+intervals, the harvest still can stall (maybe with a 403 or 500).
 
 If a specific time window fails repeatedly, you can manually touch the file, e.g.
 
 ```
-$ touch tmp/part-02-20190801114700-20190801114759.ndj
+$ touch tmp/dcdump-20190801114700-20190801114759.ndjson
 ```
 
 The dcdump tool checks for the existence of the file, before harvesting; this
@@ -145,41 +130,29 @@ way it's possible to skip unfetchable slices.
 After successful runs, concatenate the data to get a newline delimited single file dump of datacite.
 
 ```
-$ cat tmp/*ndj > datacite.ndj
+$ cat tmp/*ndjson | sort -u > datacite.ndjson
 ```
 
 Again, this is ugly, but should all be obsolete as soon as [a public data
 dump](https://github.com/datacite/datacite/issues/709) is available.
 
-## Error catalog
+## Archive Item
 
-> HTTP 502, 500, 403, 400, "unexpected EOF", "stream error"
+A datacite snapshot from 11/2019 is available as part of the [Bulk
+Bibliographic Metadata](https://archive.org/details/ia_biblio_metadata)
+collection at
+[Datacite Dump 20191122](https://archive.org/details/datacite_dump_20191122).
 
-### "HTTP 400"
-
-An bug report related to [elasticsearch
-search_after](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-search-after)
-has been filed as [#897](https://github.com/datacite/datacite/issues/897).
-
-### "stream error"
-
-Seems ephemeral.
+> 18210075 items, 72GB uncompressed.
 
 ```
-FATA[6851] stream error: stream ID 91985; INTERNAL_ERROR
+$ xz -T0 -cd datacite.ndjson.xz | wc
+18210075 2562859030 72664858976
+
+$ xz -T0 -cd datacite.ndjson.xz | sha1sum
+6fa3bbb1fe07b42e021be32126617b7924f119fb  -
 ```
 
-### "HTTP 500"
+----
 
-There are occasional out-of-the-blue (OOTB) HTTP 500, e.g. when using a daily
-window harvesting on 2019-10-07:
-
-* https://api.datacite.org/dois?page%5Bcursor%5D=1&page%5Bsize%5D=100&query=updated%3A%5B2019-10-07T00%3A00%3A00Z+TO+2019-10-07T23%3A59%3A59Z%5D&state=findable
-
-In the log, there should be a line like:
-
-```
-INFO[0227] failed to create file at tmp/part-03-20191007161900-20191007161959.ndj
-```
-
-A [bug report has been filed](https://github.com/datacite/datacite/issues/898) for this error.
+Refs SPECPRJCTS-2430.
