@@ -15,7 +15,7 @@ import (
 // HarvestBatch takes a link (like https://is.gd/0pwu5c) and follows subsequent
 // pages, writes everything into a tempfile. Returns path to temporary file and
 // an error. Fails, if HTTP status is >= 400; has limited retry capabilities.
-func HarvestBatch(link string, maxRequests int) (string, error) {
+func HarvestBatch(link string, maxRequests int, sleep time.Duration) (string, error) {
 	var (
 		i          int
 		client     = pester.New()
@@ -23,7 +23,6 @@ func HarvestBatch(link string, maxRequests int) (string, error) {
 		retry      = 0
 		resp       *http.Response
 		err        error
-		sleep      = 30 * time.Second
 	)
 	f, err := ioutil.TempFile("", "dcdump-")
 	if err != nil {

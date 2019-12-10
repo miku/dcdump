@@ -51,6 +51,7 @@ var (
 	interval    = flag.String("i", "d", "[w]eekly, [d]daily, [h]ourly, [e]very minute")
 	directory   = flag.String("d", ".", "directory, where to put harvested files")
 	showVersion = flag.Bool("version", false, "show version")
+	sleep       = flag.Duration("s", 300*time.Second, "backoff after HTTP error")
 
 	Version   = "dev"
 	Buildtime = time.Now().Format("2006-01-02T15:04:05Z")
@@ -82,7 +83,7 @@ func unrollPages(s, e time.Time, directory, prefix string) error {
 	link := fmt.Sprintf("https://api.datacite.org/dois?%s", vs.Encode())
 
 	// Fetch into temporary file, then move to destination.
-	fn, err := dcdump.HarvestBatch(link, *maxRequests) // Page through.
+	fn, err := dcdump.HarvestBatch(link, *maxRequests, *sleep) // Page through.
 	if err != nil {
 		log.Printf("failed to create file for %s at %s", link, filename)
 		return err
