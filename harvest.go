@@ -24,6 +24,7 @@ func HarvestBatch(link string, maxRequests int, sleep time.Duration) (string, er
 		resp       *http.Response
 		err        error
 	)
+	client.SetRetryOnHTTP429(true)
 	f, err := ioutil.TempFile("", "dcdump-")
 	if err != nil {
 		return "", err
