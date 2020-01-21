@@ -54,7 +54,7 @@ var (
 	sleep       = flag.Duration("sleep", 300*time.Second, "backoff after HTTP error")
 
 	Version   = "dev"
-	Buildtime = time.Now().Format("2006-01-02T15:04:05Z")
+	Buildtime = ""
 )
 
 // unrollPages takes a start and end time and will write newline delimited JSON
