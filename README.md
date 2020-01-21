@@ -12,7 +12,9 @@ This tool tries to get a data dump from the API, until a [full
 dump](https://github.com/datacite/datacite/issues/709) [might be
 available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
 
-This data will be ingested into [fatcat](https://fatcat.wiki/).
+This data has been ingested into [fatcat](https://fatcat.wiki/), via
+[fatcat_import.py](https://git.archive.org/webgroup/fatcat/blob/master/python%2Ffatcat_import.py)
+in 01/2020.
 
 ## Install and Build
 
@@ -137,6 +139,25 @@ $ cat tmp/*ndjson | sort -u > datacite.ndjson
 
 Again, this is ugly, but should all be obsolete as soon as [a public data
 dump](https://github.com/datacite/datacite/issues/709) is available.
+
+## Duration
+
+A duration data point, about 80h.
+
+```
+$ dcdump -version
+dcdump 5ae0556 2020-01-21T16:25:10Z
+
+$ dcdump -i e
+...
+INFO[294683] 1075178 date slices succeeded
+
+real    4911m23.343s
+user    930m54.034s
+sys     173m7.383s
+```
+
+After 80h, the total size amounts to about 78G.
 
 ## Archive Item
 
