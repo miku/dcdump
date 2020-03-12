@@ -12,3 +12,6 @@
 *.out
 
 /dcdump
+# default harvest dirs
+/dcdump-*/*ndjson
+
