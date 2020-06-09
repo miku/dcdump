@@ -13,7 +13,7 @@ dump](https://github.com/datacite/datacite/issues/709) [might be
 available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
 
 This data has been ingested into [fatcat](https://fatcat.wiki/), via
-[fatcat_import.py](https://git.archive.org/webgroup/fatcat/blob/master/python%2Ffatcat_import.py)
+[fatcat_import.py](https://github.com/internetarchive/fatcat/blob/master/python/fatcat_import.py)
 in 01/2020.
 
 ## Install and Build
