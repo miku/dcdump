@@ -178,4 +178,4 @@ $ xz -T0 -cd datacite.ndjson.xz | sha1sum
 
 ----
 
-Refs SPECPRJCTS-2430.
+JI:KNIEKQ2QKJFEGVCTFUZDIMZQBI
