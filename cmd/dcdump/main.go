@@ -61,19 +61,20 @@ var (
 // into a single file at DIRECTORY/PREFIX-START-END.ndjson. If that file already
 // exists, we assume we already fetched that particular time window.
 func unrollPages(s, e time.Time, directory, prefix string) error {
-	filename := path.Join(directory, fmt.Sprintf("%s%s-%s.ndjson",
-		prefix,
-		s.Format("20060102150405"),
-		e.Format("20060102150405")))
-
-	// If file exists assume we already harvested it.
+	var (
+		layout   = "20060102150405"
+		filename = path.Join(directory, fmt.Sprintf("%s%s-%s.ndjson",
+			prefix,
+			s.Format(layout),
+			e.Format(layout)))
+	)
 	if _, err := os.Stat(filename); err == nil {
 		log.Printf("[skip] assuming data already harvested in %s", filename)
 		return nil
 	}
-
 	// https://api.datacite.org/dois?query=updated:%5B2019-01-01T00:00:00Z+TO+2019-02-01T23:59:59Z%5D&state=findable
-	from, to := s.Format(time.RFC3339), e.Format(time.RFC3339) // TODO(martin): This is fine for UTC, but also w/ TZ?
+	// TODO(martin): This is fine for UTC, but also w/ TZ?
+	from, to := s.Format(time.RFC3339), e.Format(time.RFC3339)
 	vs := url.Values{
 		"query":        []string{fmt.Sprintf("updated:[%s TO %s]", from, to)},
 		"state":        []string{"findable"},
@@ -85,7 +86,7 @@ func unrollPages(s, e time.Time, directory, prefix string) error {
 	// Fetch into temporary file, then move to destination.
 	fn, err := dcdump.HarvestBatch(link, *maxRequests, *sleep) // Page through.
 	if err != nil {
-		log.Printf("failed to create file for %s at %s", link, filename)
+		log.Printf("failed to create file for %s at %s (%v)", link, filename, err)
 		return err
 	}
 	log.Printf("batch done: %s [%s]", link, filename)

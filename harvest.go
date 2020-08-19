@@ -57,7 +57,8 @@ func HarvestBatch(link string, maxRequests int, sleep time.Duration) (string, er
 				continue
 			}
 			if err != nil {
-				return "", err
+				// Retry on any transport error.
+				continue
 			}
 			defer resp.Body.Close()
 			if resp.StatusCode < 400 {
@@ -71,7 +72,6 @@ func HarvestBatch(link string, maxRequests int, sleep time.Duration) (string, er
 		if _, err := io.WriteString(f, "\n"); err != nil {
 			return "", err
 		}
-
 		// Decoding and see, whether we got JSON and if so, parse out some fields.
 		dec := json.NewDecoder(tee)
 		var dr DOIResponse
