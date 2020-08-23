@@ -44,6 +44,7 @@ func HarvestBatch(link string, maxRequests int, sleep time.Duration) (string, er
 			if err != nil {
 				return "", err
 			}
+			req.Header.Add("User-Agent", "dcdump")
 			// The "unexpected EOF" might be caused by some truncated, compressed
 			// content? This is a workaround, it probably should be retried (which
 			// pester does not).
