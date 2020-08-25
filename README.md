@@ -168,6 +168,10 @@ collection at
 
 > 18210075 items, 72GB uncompressed.
 
+### Updates
+
+* [https://archive.org/details/datacite_dump_20200824](https://archive.org/details/datacite_dump_20200824); 19606708 [unique DOI](https://archive.org/download/datacite_dump_20200824/datacite_20200824_doi.tsv.xz)
+
 ```
 $ xz -T0 -cd datacite.ndjson.xz | wc
 18210075 2562859030 72664858976
