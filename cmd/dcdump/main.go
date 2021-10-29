@@ -82,7 +82,6 @@ func unrollPages(s, e time.Time, directory, prefix string) error {
 		"page[cursor]": []string{"1"}, // https://support.datacite.org/docs/pagination#section-cursor
 	}
 	link := fmt.Sprintf("https://api.datacite.org/dois?%s", vs.Encode())
-
 	// Fetch into temporary file, then move to destination.
 	fn, err := dcdump.HarvestBatch(link, *maxRequests, *sleep) // Page through.
 	if err != nil {
@@ -103,18 +102,16 @@ func hasPrefix(s, prefix string) bool {
 func main() {
 	flag.Var(&start, "s", "start date for harvest")
 	flag.Var(&end, "e", "end date for harvest")
-
 	flag.Parse()
-
 	if *showVersion {
 		fmt.Printf("dcdump %s %s\n", Version, Buildtime)
 		os.Exit(0)
 	}
-
-	sem := make(chan struct{}, *workers) // Have at most ~workers in parallel.
-	var wg sync.WaitGroup
-
-	var intervals []dateutil.Interval
+	var (
+		sem       = make(chan struct{}, *workers) // Have at most ~workers in parallel.
+		wg        sync.WaitGroup
+		intervals []dateutil.Interval
+	)
 	switch {
 	case hasPrefix(*interval, "e"):
 		intervals = dateutil.EveryMinute(start.Time, end.Time)
@@ -129,7 +126,6 @@ func main() {
 	default:
 		log.Fatal("intervals supported: [h]ourly, [d]aily, [w]eekly, [m]onthly and [e]very minute")
 	}
-
 	if *debug {
 		for _, iv := range intervals {
 			fmt.Printf("%s -- %s\n", iv.Start, iv.End)
@@ -137,9 +133,7 @@ func main() {
 		log.Printf("%d intervals", len(intervals))
 		os.Exit(0)
 	}
-
 	log.Printf("attempting to fetch datacite in %d intervals", len(intervals))
-
 	for _, iv := range intervals {
 		sem <- struct{}{}
 		wg.Add(1)

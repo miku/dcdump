@@ -40,7 +40,6 @@ var (
 type (
 	// shiftFunc allows to shift a given time back and forth.
 	shiftFunc func(t time.Time) time.Time
-
 	// intervalFunc takes a start and endtime and returns a number of
 	// intervals. How intervals are generated is flexible.
 	intervalFunc func(s, e time.Time) []Interval
