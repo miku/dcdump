@@ -26,6 +26,12 @@ $ cd dcdump
 $ make
 ```
 
+Or install with the Go tool:
+
+```
+$ go install github.com/miku/dcdump/cmd/dcdump@latest
+```
+
 ## Usage
 
 ```
