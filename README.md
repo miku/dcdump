@@ -165,7 +165,7 @@ sys     173m7.383s
 
 After 80h, the total size amounts to about 78G.
 
-## Archive Item
+## Archive Items
 
 A datacite snapshot from 11/2019 is available as part of the [Bulk
 Bibliographic Metadata](https://archive.org/details/ia_biblio_metadata)
@@ -175,6 +175,25 @@ collection at
 > 18210075 items, 72GB uncompressed.
 
 ### Updates
+
+* [https://archive.org/details/datacite_dump_20211022](https://archive.org/details/datacite_dump_20211022); 25859678 unique (lowercased) DOI
+
+```
+$ curl -sL "https://archive.org/download/datacite_dump_20211022/datacite_dump_20211022.json.zst" | \
+    zstdcat -c -T0 | jq -rc '.id'
+
+10.1001/jama.289.8.989
+10.1001/jama.293.14.1723-a
+10.1001/jamainternmed.2013.9245
+10.1001/jamaneurol.2015.4885
+10.1002/2014gb004975
+10.1002/2014gl061020
+10.1002/2014jc009965
+10.1002/2014jd022411
+10.1002/2015gb005314
+10.1002/2015gl065259
+...
+```
 
 * [https://archive.org/details/datacite_dump_20200824](https://archive.org/details/datacite_dump_20200824); 19606708 [unique DOI](https://archive.org/download/datacite_dump_20200824/datacite_20200824_doi.tsv.xz)
 
