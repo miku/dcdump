@@ -167,6 +167,12 @@ After 80h, the total size amounts to about 78G.
 
 ## Archive Items
 
+* [https://archive.org/details/datacite_dump_20211022](https://archive.org/details/datacite_dump_20211022)
+* [https://archive.org/details/datacite_dump_20200824](https://archive.org/details/datacite_dump_20200824)
+* [https://archive.org/details/datacite_dump_20191122](https://archive.org/details/datacite_dump_20191122)
+
+### Initial snapshot
+
 A datacite snapshot from 11/2019 is available as part of the [Bulk
 Bibliographic Metadata](https://archive.org/details/ia_biblio_metadata)
 collection at
