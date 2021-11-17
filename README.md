@@ -179,7 +179,7 @@ collection at
 * [https://archive.org/details/datacite_dump_20211022](https://archive.org/details/datacite_dump_20211022); 25859678 unique (lowercased) DOI
 
 ```
-$ curl -sL "https://archive.org/download/datacite_dump_20211022/datacite_dump_20211022.json.zst" | \
+$ curl -L https://archive.org/download/datacite_dump_20211022/datacite_dump_20211022.json.zst | \
     zstdcat -c -T0 | jq -rc '.id'
 
 10.1001/jama.289.8.989
