@@ -29,3 +29,7 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+release:
+  github:
+    owner: miku
+    name: dcdump
