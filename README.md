@@ -1,5 +1,7 @@
 # Datacite Dump Tool
 
+[![DOI](https://zenodo.org/badge/270958623.svg)](https://zenodo.org/badge/latestdoi/270958623)
+
 As of Fall 2019 the [datacite API](https://support.datacite.org/docs/api) is
 a bit flaky: [#237](https://github.com/datacite/lupo/issues/237),
 [#851](https://github.com/datacite/datacite/issues/851),
