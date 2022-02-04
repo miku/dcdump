@@ -16,3 +16,5 @@
 /dcdump-*/*ndjson
 /datacite_dump_20191122
 /upload
+
+dist/
