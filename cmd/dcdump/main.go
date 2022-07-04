@@ -44,14 +44,15 @@ var (
 	start dateutil.Date = dateutil.Date{Time: dateutil.MustParse("2018-01-01")}
 	end   dateutil.Date = dateutil.Date{Time: time.Now().UTC()}
 
-	debug       = flag.Bool("debug", false, "only print intervals then exit")
-	prefix      = flag.String("p", "dcdump-", "file prefix for harvested files")
-	maxRequests = flag.Int("l", 16777216, "upper limit for number of requests")
-	workers     = flag.Int("w", 4, "parallel workers (approximate)")
-	interval    = flag.String("i", "d", "[w]eekly, [d]daily, [h]ourly, [e]very minute")
-	directory   = flag.String("d", ".", "directory, where to put harvested files")
-	showVersion = flag.Bool("version", false, "show version")
-	sleep       = flag.Duration("sleep", 300*time.Second, "backoff after HTTP error")
+	debug         = flag.Bool("debug", false, "only print intervals then exit")
+	prefix        = flag.String("p", "dcdump-", "file prefix for harvested files")
+	maxRequests   = flag.Int("l", 16777216, "upper limit for number of requests")
+	workers       = flag.Int("w", 4, "parallel workers (approximate)")
+	interval      = flag.String("i", "d", "[w]eekly, [d]daily, [h]ourly, [e]very minute")
+	directory     = flag.String("d", ".", "directory, where to put harvested files")
+	showVersion   = flag.Bool("version", false, "show version")
+	sleep         = flag.Duration("sleep", 300*time.Second, "backoff after HTTP error")
+	noAffiliation = flag.Bool("A", false, "do not include affiliation information")
 
 	Version   = "dev"
 	Buildtime = ""
@@ -80,6 +81,9 @@ func unrollPages(s, e time.Time, directory, prefix string) error {
 		"state":        []string{"findable"},
 		"page[size]":   []string{"100"},
 		"page[cursor]": []string{"1"}, // https://support.datacite.org/docs/pagination#section-cursor
+	}
+	if !*noAffiliation {
+		vs.Set("affiliation", "true")
 	}
 	link := fmt.Sprintf("https://api.datacite.org/dois?%s", vs.Encode())
 	// Fetch into temporary file, then move to destination.

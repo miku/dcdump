@@ -39,26 +39,66 @@ $ go install github.com/miku/dcdump/cmd/dcdump@latest
 ```
 $ dcdump -h
 Usage of dcdump:
+  -A    do not include affiliation information
   -d string
-	directory, where to put harvested files (default ".")
+        directory, where to put harvested files (default ".")
   -debug
-	only print intervals then exit
+        only print intervals then exit
   -e value
-	end date for harvest (default 2019-12-10)
+        end date for harvest (default 2022-07-04)
   -i string
-	[w]eekly, [d]daily, [h]ourly, [e]very minute (default "d")
+        [w]eekly, [d]daily, [h]ourly, [e]very minute (default "d")
   -l int
-	upper limit for number of requests (default 16777216)
+        upper limit for number of requests (default 16777216)
   -p string
-	file prefix for harvested files (default "dcdump-")
+        file prefix for harvested files (default "dcdump-")
   -s value
-	start date for harvest (default 2018-01-01)
+        start date for harvest (default 2018-01-01)
   -sleep duration
-	backoff after HTTP error (default 5m0s)
+        backoff after HTTP error (default 5m0s)
   -version
-	show version
+        show version
   -w int
-	parallel workers (approximate) (default 4)
+        parallel workers (approximate) (default 4)
+```
+
+## Affiliations
+
+Affiliations are requested by default (turn if off with `-A`).
+
+* [Can I see more detailed affiliation information in the REST API?](https://support.datacite.org/docs/can-i-see-more-detailed-affiliation-information-in-the-rest-api)
+
+Example:
+
+```json
+{
+  "data": [
+    {
+      "id": "10.3886/e100985v1",
+      "type": "dois",
+      "attributes": {
+        "doi": "10.3886/e100985v1",
+        "identifiers": [
+          {
+            "identifier": "https://doi.org/10.3886/e100985v1",
+            "identifierType": "DOI"
+          }
+        ],
+        "creators": [
+          {
+            "name": "Porter, Joshua J.",
+            "nameType": "Personal",
+            "givenName": "Joshua J.",
+            "familyName": "Porter",
+            "affiliation": [
+              {
+                "name": "George Washington University"
+              }
+            ],
+            "nameIdentifiers": []
+          }
+        ],
+      ...
 ```
 
 ## Examples
