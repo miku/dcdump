@@ -36,6 +36,12 @@ $ go install github.com/miku/dcdump/cmd/dcdump@latest
 
 ## Usage
 
+The basic idea is to request small enough chunks (intervals) from the API to
+eventuall capture most records. Some hand-holding may be required; e.g. request
+most data via "daily" or "hourly" slices and if gaps remain (e.g. because the
+number of updates in a given time slice exceeds the maximum number of records
+sent by the api), use "every minute" slices for the rest.
+
 ```
 $ dcdump -h
 Usage of dcdump:
@@ -185,6 +191,12 @@ After successful runs, concatenate the data to get a newline delimited single fi
 $ cat tmp/*ndjson | sort -u > datacite.ndjson
 ```
 
+Or, more modern:
+
+```
+$ fd dcdump-*ndjson -x cat | jq -rc '.data[]' > datacite.ndjson # may contain dups
+```
+
 Again, this is ugly, but should all be obsolete as soon as [a public data
 dump](https://github.com/datacite/datacite/issues/709) is available.
 
@@ -209,6 +221,7 @@ After 80h, the total size amounts to about 78G.
 
 ## Archive Items
 
+* ...
 * [https://archive.org/details/datacite_dump_20221118](https://archive.org/details/datacite_dump_20221118)
 * [https://archive.org/details/datacite_dump_20211022](https://archive.org/details/datacite_dump_20211022)
 * [https://archive.org/details/datacite_dump_20200824](https://archive.org/details/datacite_dump_20200824)
