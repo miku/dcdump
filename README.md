@@ -194,7 +194,7 @@ $ cat tmp/*ndjson | sort -u > datacite.ndjson
 Or, more modern:
 
 ```
-$ fd dcdump-*ndjson -x cat | jq -rc '.data[]' > datacite.ndjson # may contain dups
+$ fd 'dcdump-.*ndjson' -x cat | jq -rc '.data[]' > datacite.ndjson # may contain dups
 ```
 
 Again, this is ugly, but should all be obsolete as soon as [a public data
