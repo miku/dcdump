@@ -221,7 +221,7 @@ After 80h, the total size amounts to about 78G.
 
 ## Archive Items
 
-* ...
+* [https://archive.org/details/datacite_dump_20230713](https://archive.org/details/datacite_dump_20230713)
 * [https://archive.org/details/datacite_dump_20221118](https://archive.org/details/datacite_dump_20221118)
 * [https://archive.org/details/datacite_dump_20211022](https://archive.org/details/datacite_dump_20211022)
 * [https://archive.org/details/datacite_dump_20200824](https://archive.org/details/datacite_dump_20200824)
