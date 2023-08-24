@@ -10,8 +10,8 @@ a bit flaky: [#237](https://github.com/datacite/lupo/issues/237),
 [#897](https://github.com/datacite/datacite/issues/897),
 [#898](https://github.com/datacite/datacite/issues/898).
 
-This tool tries to get a data dump from the API, until a [full
-dump](https://github.com/datacite/datacite/issues/709) [might be
+This tool tries to get a data dump from the API, until a [full](https://github.com/datacite/datacite/issues/1805)
+[dump](https://github.com/datacite/datacite/issues/709) [might be
 available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
 
 This data has been ingested into [fatcat](https://fatcat.wiki/), via
