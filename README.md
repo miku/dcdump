@@ -18,6 +18,8 @@ This data has been ingested into [fatcat](https://fatcat.wiki/), via
 [fatcat_import.py](https://github.com/internetarchive/fatcat/blob/master/python/fatcat_import.py)
 in 01/2020.
 
+Built at the [Internet Archive](https://archive.org).
+
 ## Install and Build
 
 You'll need the [go](https://golang.org/cmd/go/) tool installed (i.e. [installed go](https://golang.org/doc/install)).
