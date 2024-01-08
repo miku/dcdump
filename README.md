@@ -2,6 +2,13 @@
 
 [![DOI](https://zenodo.org/badge/270958623.svg)](https://zenodo.org/badge/latestdoi/270958623)
 
+----
+
+A recent version of datacite metadata can be found here:
+[https://archive.org/details/datacite_dump_20230713](https://archive.org/details/datacite_dump_20230713).
+
+----
+
 As of Fall 2019 the [datacite API](https://support.datacite.org/docs/api) is
 a bit flaky: [#237](https://github.com/datacite/lupo/issues/237),
 [#851](https://github.com/datacite/datacite/issues/851),
