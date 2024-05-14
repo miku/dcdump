@@ -5,7 +5,7 @@
 ----
 
 A recent version of datacite metadata can be found here:
-[https://archive.org/details/datacite_dump_20230713](https://archive.org/details/datacite_dump_20230713).
+[https://archive.org/details/datacite-2024-04-17](https://archive.org/details/datacite-2024-04-17).
 
 ----
 
@@ -202,12 +202,22 @@ $ cat tmp/*ndjson | sort -u > datacite.ndjson
 
 Or, more modern:
 
-```
+```shell
 $ fd 'dcdump-.*ndjson' -x cat | jq -rc '.data[]' > datacite.ndjson # may contain dups
 ```
 
 Again, this is ugly, but should all be obsolete as soon as [a public data
 dump](https://github.com/datacite/datacite/issues/709) is available.
+
+Another way:
+
+```shell
+$ fd | \
+    parallel --block 20M -j 32 cat | \
+    parallel --block 30M --pipe 'jq -rc .data[]' | \
+    pv -l | \
+    zstd -c -T0 > /tmp/dcdump-2024-04-17.json.zst
+```
 
 ## Duration
 
@@ -230,6 +240,8 @@ After 80h, the total size amounts to about 78G.
 
 ## Archive Items
 
+* [https://archive.org/details/datacite-2024-04-17](https://archive.org/details/datacite-2024-04-17)
+* [https://archive.org/details/datacite-2024-01-26](https://archive.org/details/datacite-2024-01-26)
 * [https://archive.org/details/datacite_dump_20230713](https://archive.org/details/datacite_dump_20230713)
 * [https://archive.org/details/datacite_dump_20221118](https://archive.org/details/datacite_dump_20221118)
 * [https://archive.org/details/datacite_dump_20211022](https://archive.org/details/datacite_dump_20211022)
