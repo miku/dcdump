@@ -15,7 +15,8 @@ a bit flaky: [#237](https://github.com/datacite/lupo/issues/237),
 [#188](https://github.com/datacite/datacite/issues/188),
 [#709](https://github.com/datacite/datacite/issues/709)
 [#897](https://github.com/datacite/datacite/issues/897),
-[#898](https://github.com/datacite/datacite/issues/898).
+[#898](https://github.com/datacite/datacite/issues/898),
+[#1805](https://github.com/datacite/datacite/issues/1805).
 
 This tool tries to get a data dump from the API, until a [full](https://github.com/datacite/datacite/issues/1805)
 [dump](https://github.com/datacite/datacite/issues/709) [might be
