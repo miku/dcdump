@@ -4,8 +4,10 @@
 
 ----
 
-A recent version of datacite metadata can be found here:
-[https://archive.org/details/datacite-2024-04-17](https://archive.org/details/datacite-2024-04-17).
+An official datacite export is available at
+[https://datafiles.datacite.org/datafiles](https://datafiles.datacite.org/datafiles).
+A recent version of datacite metadata generated with dcdump can be found here:
+[https://archive.org/details/datacite-2024-07-31](https://archive.org/details/datacite-2024-07-31).
 
 ----
 
