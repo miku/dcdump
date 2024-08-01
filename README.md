@@ -260,6 +260,11 @@ collection at
 
 ### Updates
 
+See: [#1805](https://github.com/datacite/datacite/issues/1805),
+[#709](https://github.com/datacite/datacite/issues/709) and
+[ia_biblio_metadata](https://archive.org/details/ia_biblio_metadata) for
+updates.
+
 * [https://archive.org/details/datacite_dump_20211022](https://archive.org/details/datacite_dump_20211022); 25859678 unique (lowercased) DOI
 
 ```
