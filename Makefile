@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 TARGETS := dcdump
 # VERSION := $(shell git rev-parse --short HEAD)
-VERSION := "v0.1.3"
+VERSION := "v0.1.4"
 BUILDTIME := $(shell date -u '+%Y-%m-%dT%H:%M:%SZ')
 
 GOLDFLAGS += -X main.Version=$(VERSION)
