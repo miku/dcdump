@@ -18,6 +18,8 @@ all: $(TARGETS)
 .PHONY: clean
 clean:
 	rm -f $(TARGETS)
+	rm -rf packaging/deb/dcdump/usr
+	rm -f dcdump_*.deb
 
 .PHONY: update-all-deps
 update-all-deps:
