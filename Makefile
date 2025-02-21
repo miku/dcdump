@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 TARGETS := dcdump
 PKGNAME := dcdump
-VERSION := 0.2.0
+VERSION := 0.2.1
 BUILDTIME := $(shell date -u '+%Y-%m-%dT%H:%M:%SZ')
 
 GOLDFLAGS += -X main.Version=$(VERSION)
