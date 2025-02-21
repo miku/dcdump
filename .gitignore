@@ -18,3 +18,5 @@
 /upload
 
 dist/
+packaging/deb/dcdump/usr
+dcdump_*.deb

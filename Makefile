@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 TARGETS := dcdump
-# VERSION := $(shell git rev-parse --short HEAD)
-VERSION := "v0.1.5"
+PKGNAME := dcdump
+VERSION := 0.2.0
 BUILDTIME := $(shell date -u '+%Y-%m-%dT%H:%M:%SZ')
 
 GOLDFLAGS += -X main.Version=$(VERSION)
@@ -22,4 +22,11 @@ clean:
 .PHONY: update-all-deps
 update-all-deps:
 	go get -u -v ./... && go mod tidy
+
+.PHONY: deb
+deb: $(TARGETS)
+	mkdir -p packaging/deb/$(PKGNAME)/usr/local/bin
+	cp $(TARGETS) packaging/deb/$(PKGNAME)/usr/local/bin
+	cd packaging/deb && fakeroot dpkg-deb --build $(PKGNAME) .
+	mv packaging/deb/$(PKGNAME)_*.deb .
 

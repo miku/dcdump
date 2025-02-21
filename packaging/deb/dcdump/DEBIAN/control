@@ -1,0 +1,10 @@
+Package: dcdump
+Version: 0.2.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Essential: no
+Depends: libc6 (>= 2.12)
+Maintainer: Martin Czygan <martin.czygan@gmail.com>
+Description: A harvesting tool for the datacite.org REST API
+
