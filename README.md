@@ -28,7 +28,7 @@ This tool tries to get a data dump from the API, until a [full](https://github.c
 [dump](https://github.com/datacite/datacite/issues/709) [might be
 available](https://github.com/datacite/datacite/issues/851#issuecomment-538718411).
 
-This data has been ingested into [fatcat](https://fatcat.wiki/), via
+This data has been ingested into [fatcat](https://scholar.archive.org/fatcat/), via
 [fatcat_import.py](https://github.com/internetarchive/fatcat/blob/master/python/fatcat_import.py)
 in 01/2020.
 
