@@ -4,8 +4,12 @@
 
 ----
 
-An official datacite export is available at
+Ifficial datacite data exports are available on a yearly basis at
 [https://datafiles.datacite.org/datafiles](https://datafiles.datacite.org/datafiles).
+
+This tool allows to assemble a snapshot of datacite at any time, in the rare
+case you the above data snapshots do not cover your needs.
+
 A recent version of datacite metadata generated with dcdump can be found here:
 [https://archive.org/details/datacite-2024-07-31](https://archive.org/details/datacite-2024-07-31).
 
