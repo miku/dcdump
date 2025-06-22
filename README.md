@@ -4,8 +4,10 @@
 
 ----
 
-Ifficial datacite data exports are available on a yearly basis at
+🌸 Note: Official datacite data exports are now available on a yearly basis at
 [https://datafiles.datacite.org/datafiles](https://datafiles.datacite.org/datafiles).
+
+----
 
 This tool allows to assemble a snapshot of datacite at any time, in the rare
 case you the above data snapshots do not cover your needs.
