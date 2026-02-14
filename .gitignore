@@ -22,3 +22,13 @@ packaging/deb/dcdump/usr
 dcdump_*.deb
 
 TODO.md
+
+.beads/.gitignore
+.beads/README.md
+.beads/config.yaml
+.beads/interactions.jsonl
+.beads/issues.jsonl
+.beads/metadata.json
+.gitattributes
+AGENTS.md
+
